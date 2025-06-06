@@ -189,15 +189,18 @@ class IonTrapCompiler:
         """将单个门转换为离子阱门"""
         
         if gate.name == 'h':
-            # Hadamard门 -> R_theta_phi门
-            self._add_r_gate(circuit, np.pi, np.pi/2, qubits[0])
+            # Hadamard门分解: H = RZ(π/2) * RY(π/2) * RZ(π/2)
+            # 使用virtual Z门优化
+            self._add_virtual_z(qubits[0], np.pi/2)
+            self._add_r_gate(circuit, np.pi/2, np.pi/2, qubits[0])  # RY(π/2)
+            self._add_virtual_z(qubits[0], np.pi/2)
             
         elif gate.name == 'x':
-            # X门 -> R_theta_phi门
+            # X门 -> R_theta_phi门 (绕X轴旋转π)
             self._add_r_gate(circuit, np.pi, 0, qubits[0])
             
         elif gate.name == 'y':
-            # Y门 -> R_theta_phi门  
+            # Y门 -> R_theta_phi门 (绕Y轴旋转π)
             self._add_r_gate(circuit, np.pi, np.pi/2, qubits[0])
             
         elif gate.name == 'z':
@@ -345,20 +348,23 @@ class IonTrapCompiler:
         self.virtual_z_phases[qubit] %= (2 * np.pi)
     
     def _convert_cnot_to_ms(self, circuit: QuantumCircuit, control: int, target: int):
-        """将CNOT门转换为MS门序列"""
-        # CNOT分解: R_y(-π/2) ⊗ R_y(-π/2) · MS(π/2) · R_y(π/2) ⊗ I
+        """将CNOT门转换为MS门序列
         
-        # 步骤1: 预处理旋转
-        self._add_r_gate(circuit, np.pi/2, np.pi/2, control)   # R_y(π/2) on control
-        self._add_r_gate(circuit, np.pi/2, np.pi/2, target)    # R_y(π/2) on target
+        标准分解: CNOT = Ry(-π/2) ⊗ Ry(-π/2) · MS(π/2) · Ry(π/2) ⊗ I
+        其中MS门产生最大纠缠态
+        """
         
-        # 步骤2: MS门
+        # 步骤1: 预处理旋转 - 将两个量子比特都旋转到赤道
+        self._add_r_gate(circuit, np.pi/2, np.pi/2, control)   # Ry(-π/2) on control 
+        self._add_r_gate(circuit, np.pi/2, np.pi/2, target)    # Ry(-π/2) on target
+        
+        # 步骤2: MS纠缠门 - 产生最大纠缠
         ms_gate = MSGate(phi=0.0, theta=np.pi/2)
         circuit.append(ms_gate, [control, target])
         
-        # 步骤3: 后处理旋转
-        self._add_r_gate(circuit, np.pi/2, -np.pi/2, control)  # R_y(-π/2) on control
-        self._add_r_gate(circuit, np.pi/2, -np.pi/2, target)   # R_y(-π/2) on target
+        # 步骤3: 后处理旋转 - 只对控制量子比特进行反向旋转
+        self._add_r_gate(circuit, np.pi/2, -np.pi/2, control)  # Ry(π/2) on control
+        self._add_r_gate(circuit, np.pi/2, -np.pi/2, target)   # Ry(π/2) on target
     
     def _convert_cz_to_ms(self, circuit: QuantumCircuit, control: int, target: int):
         """将CZ门转换为MS门序列"""
