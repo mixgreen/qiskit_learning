@@ -10,7 +10,7 @@ import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister, transpile
 from qiskit_aer import AerSimulator
 from qiskit.quantum_info import Statevector, DensityMatrix
-from ion_trap_compiler import IonTrapCompiler
+from qiskit_learning.ion_trap.compiler import IonTrapCompiler
 import matplotlib.pyplot as plt
 from typing import List, Tuple, Dict
 import logging

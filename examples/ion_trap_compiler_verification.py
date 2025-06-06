@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 from qiskit import QuantumCircuit, transpile
 from qiskit.quantum_info import Statevector, DensityMatrix, state_fidelity
 from qiskit_aer import AerSimulator
-from ion_trap_compiler import IonTrapCompiler
+from qiskit_learning.ion_trap.compiler import IonTrapCompiler
 from typing import List, Tuple, Dict, Optional
 import logging
 import time

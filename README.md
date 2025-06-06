@@ -44,20 +44,25 @@
 
 ```
 qiskit-learning-project/
-├── main.py                          # 主程序，包含基本示例
-├── examples/                        # 学习示例目录
-│   ├── basic_gates.py              # 基本量子门示例
-│   ├── openqasm3_examples.py       # OpenQASM 3.0 示例
-│   ├── ion_trap_compiler.py        # 离子阱编译器核心代码
-│   ├── ion_trap_usage_example.py   # 离子阱编译器使用示例
+├── main.py                           # 主程序，包含基本示例
+├── qiskit_learning/                  # 核心包
+│   ├── __init__.py
+│   └── ion_trap/
+│       ├── __init__.py
+│       └── compiler.py              # 离子阱编译器实现
+├── examples/                         # 学习示例目录
+│   ├── basic_gates.py               # 基本量子门示例
+│   ├── openqasm3_examples.py        # OpenQASM 3.0 示例
+│   ├── ion_trap_compiler.py         # 离子阱编译器演示脚本
+│   ├── ion_trap_usage_example.py    # 离子阱编译器使用示例
 │   ├── ion_trap_measurement_demo.py # 离子阱测量特性演示
-│   ├── qiskit_tutorial.ipynb       # Qiskit 基础教程
-│   ├── openqasm3_tutorial.ipynb    # OpenQASM 3.0 教程
-│   ├── ion_trap_tutorial.ipynb     # 离子阱编译器教程
-│   └── bell_state.qasm             # OpenQASM 3.0 文件示例
-├── .venv/                          # 虚拟环境
-├── pyproject.toml                  # 项目配置
-└── README.md                       # 项目说明
+│   ├── qiskit_tutorial.ipynb        # Qiskit 基础教程
+│   ├── openqasm3_tutorial.ipynb     # OpenQASM 3.0 教程
+│   ├── ion_trap_tutorial.ipynb      # 离子阱编译器教程
+│   └── bell_state.qasm              # OpenQASM 3.0 文件示例
+├── .venv/                           # 虚拟环境
+├── pyproject.toml                   # 项目配置
+└── README.md                        # 项目说明
 ```
 
 ## 🎯 学习内容

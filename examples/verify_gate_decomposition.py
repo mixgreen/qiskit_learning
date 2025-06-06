@@ -6,7 +6,7 @@
 import numpy as np
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Operator
-from ion_trap_compiler import RThetaPhiGate, MSGate, VirtualZGate
+from qiskit_learning.ion_trap.compiler import RThetaPhiGate, MSGate, VirtualZGate
 
 def r_matrix(theta, phi):
     """R(θ, φ) 门矩阵"""
