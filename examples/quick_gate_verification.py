@@ -9,7 +9,7 @@
 import numpy as np
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector, Operator
-from ion_trap_compiler import IonTrapCompiler
+from qiskit_learning.ion_trap.compiler import IonTrapCompiler
 
 def verify_gate(gate_name: str, original_circuit: QuantumCircuit, tolerance: float = 1e-10) -> bool:
     """

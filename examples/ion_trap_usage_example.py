@@ -10,7 +10,7 @@ from qiskit.visualization import plot_histogram
 import matplotlib.pyplot as plt
 
 # 导入离子阱编译器
-from ion_trap_compiler import IonTrapCompiler, MSGate, RThetaPhiGate, VirtualZGate
+from qiskit_learning.ion_trap.compiler import IonTrapCompiler, MSGate, RThetaPhiGate, VirtualZGate
 
 
 def simple_usage_example():

@@ -9,7 +9,7 @@
 import numpy as np
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
-from ion_trap_compiler import IonTrapCompiler
+from qiskit_learning.ion_trap.compiler import IonTrapCompiler
 
 def compare_states(state1, state2, tolerance=1e-10):
     """比较两个量子态，考虑全局相位"""
